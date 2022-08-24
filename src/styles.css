@@ -1,0 +1,23 @@
+.App {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+
+.paletteComponent {
+  /* margin-top: 5rem; */
+  background-color: white;
+}
+
+.diagramComponent {
+  height: 35rem;
+  border: solid 1px white;
+  background-color: #2e2933;
+}
