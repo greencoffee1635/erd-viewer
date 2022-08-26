@@ -13,19 +13,32 @@ const Diagram = () => {
       "relinkingTool.isUnconnectedLinkValid": true,
       "relinkingTool.portGravity": 20,
       "undoManager.isEnabled": true,
-    });
-
-    diagram.nodeTemplate = $(
-      go.Node,
-      "Spot",
-      { locationSpot: go.Spot.Center },
-      new go.Binding("location", "loc", go.Point.parse).makeTwoWay(
-        go.Point.stringify
+      scale: 1.8,
+      linkTemplate: $(
+        go.Link, // the whole link panel
+        { toShortLength: 8 },
+        { relinkableFrom: true, relinkableTo: true, reshapable: true },
+        new go.Binding("points").makeTwoWay(),
+        $(
+          go.Shape, // the link path shape
+          {
+            isPanelMain: true,
+            stroke: "#00AAAA",
+            strokeWidth: 1.5,
+          }
+        ),
+        $(
+          go.Shape, // the arrowhead
+          {
+            toArrow: "Standard",
+            stroke: null,
+            fill: "#00AAAA",
+            scale: 1,
+          }
+        )
       ),
-      new go.Binding("angle").makeTwoWay(),
-      // the main object is a Panel that surrounds a TextBlock with a Shape
-      $(
-        go.Panel,
+      nodeTemplate: $(
+        go.Node,
         "Auto",
         $(
           go.Shape,
@@ -37,43 +50,14 @@ const Diagram = () => {
             toLinkable: true,
             cursor: "pointer",
           }
-          // new go.Binding("figure"),
         ),
         $(
           go.TextBlock,
           { margin: 5, editable: true },
           new go.Binding("text").makeTwoWay()
         )
-      )
-    );
-
-    diagram.scale = 1.8;
-
-    // Link templates
-    diagram.linkTemplate = $(
-      go.Link, // the whole link panel
-      { toShortLength: 8 },
-      { relinkableFrom: true, relinkableTo: true, reshapable: true },
-
-      new go.Binding("points").makeTwoWay(),
-      $(
-        go.Shape, // the link path shape
-        {
-          isPanelMain: true,
-          stroke: "#00AAAA",
-          strokeWidth: 1.5,
-        }
       ),
-      $(
-        go.Shape, // the arrowhead
-        {
-          toArrow: "Standard",
-          stroke: null,
-          fill: "#00AAAA",
-          scale: 1,
-        }
-      )
-    );
+    });
 
     return diagram;
   }
